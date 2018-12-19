@@ -4,7 +4,7 @@
 <%# removing the 'path.config' setting. -%>
 <%# -%>
 <%# REF: https://github.com/elastic/logstash/issues/8420 -%>
-<% @settings.delete('path.config') unless @pipelines.empty? -%>
+<% @settings.delete('path.config') if @pipelines -%>
 <%# -%>
 <%# Similiarly, when using centralized pipeline management, path.config -%>
 <%# is an invalid setting, and should be removed. -%>

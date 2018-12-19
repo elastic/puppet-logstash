@@ -151,7 +151,7 @@ class logstash(
   $settings          = {},
   $startup_options   = {},
   $jvm_options       = [],
-  Array $pipelines   = [],
+  Variant[Boolean,Array[Hash,1]] $pipelines = false,
   Boolean $manage_repo   = true,
 )
 {

@@ -93,14 +93,29 @@ class logstash::service {
     # ..and pipelines.yml, if the user provided such. If they didn't, zero out
     # the file, which will default Logstash to traditional single-pipeline
     # behaviour.
-    if(empty($pipelines)) {
+    if $pipelines {
+      # Either a non empty array of hashes, or true.
+      concat { '/etc/logstash/pipelines.yml':
+        ensure => present,
+      }
+      concat_fragment { 'pipelines.yml header':
+        content => "---\n",
+        target  => '/etc/logstash/pipelines.yml',
+        order   => 1,
+      }
+
+      if $pipelines =~ Array {
+        $pipelines.each |Hash $pipeline| {
+          $unique_resource_id = digest(String($pipeline))
+          logstash::pipeline { $unique_resource_id:
+            config => $pipeline,
+          }
+        }
+      }
+    } else {
+      # Traditional single-pipeline behaviour.
       file {'/etc/logstash/pipelines.yml':
         content => '',
-      }
-    }
-    else {
-      file {'/etc/logstash/pipelines.yml':
-        content => template('logstash/pipelines.yml.erb'),
       }
     }
 

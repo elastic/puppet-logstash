@@ -3,7 +3,5 @@ fixtures:
     apt: puppetlabs/apt
     elastic_stack: elastic/elastic_stack
     stdlib: puppetlabs/stdlib
+    concat: puppetlabs/concat
     zypprepo: darin/zypprepo
-
-symlinks:
-    logstash: #{source_dir}
