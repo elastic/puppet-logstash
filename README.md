@@ -256,6 +256,37 @@ my_logstash_configs:
 In this example, templates for the config files are stored in the custom,
 site-specific module "`site_logstash`".
 
+You can also use the `pipeline_files` class within an ENC to generate pipeline configuration files:
+
+```yaml
+---
+pipeline1:
+  content: 'input {} filter {} output {}'
+```
+
+Or, with a specific destination file path:
+
+```yaml
+---
+pipeline2:
+  path: /etc/logstash/pipelines.d/pipeline2.pipeline
+  content: 'input {} filter {} output {}'
+```
+
+`content` can also span multiple lines:
+
+```yaml
+---
+pipeline2.pipeline:
+  content: |
+    input {
+      syslog {}
+    }
+    output {
+      elasticsearch {}
+    }
+```
+
 ### Patterns
 Many plugins (notably [Grok](http://logstash.net/docs/latest/filters/grok)) use *patterns*. While many are included in Logstash already, additional site-specific patterns can be managed as well.
 

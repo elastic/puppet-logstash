@@ -152,6 +152,7 @@ class logstash(
   $startup_options   = {},
   $jvm_options       = [],
   Array $pipelines   = [],
+  Hash $pipeline_files = {},
   Boolean $manage_repo   = true,
 )
 {
@@ -171,4 +172,5 @@ class logstash(
   include logstash::package
   include logstash::config
   include logstash::service
+  include logstash::pipeline_files
 }

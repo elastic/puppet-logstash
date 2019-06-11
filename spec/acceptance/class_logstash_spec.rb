@@ -263,6 +263,47 @@ describe 'class logstash' do
     end
   end
 
+  describe 'pipeline_files_parameter' do
+    context "with specific config path declared" do
+      before(:context) do
+        pipeline_files_puppet = <<-END
+        { "logstash-pipeline1.conf" =>
+          {
+            "path" => "/etc/logstash/conf.d/logstash-pipeline1.conf",
+            "content" => "My config"
+          }
+        }
+        END
+        install_logstash_from_local_file("pipeline_files => #{pipeline_files_puppet}")
+      end
+
+      it 'should render them to /etc/logstash/conf.d/logstash-pipeline1.conf' do
+        result = shell('cat /etc/logstash/conf.d/logstash-pipeline1.conf').stdout
+        expect(result).to eq("My config")
+      end
+
+    end
+
+    context "without specific config path declared" do
+      before(:context) do
+        pipeline_files_puppet = <<-END
+        { "logstash-pipeline2.conf" =>
+          {
+            "content" => "My config"
+          }
+        }
+        END
+        install_logstash_from_local_file("pipeline_files => #{pipeline_files_puppet}")
+      end
+
+      it 'should render them to /etc/logstash/conf.d/logstash-pipeline2.conf' do
+        result = shell('cat /etc/logstash/conf.d/logstash-pipeline2.conf').stdout
+        expect(result).to eq("My config")
+      end
+
+    end
+  end
+
   describe 'xpack_management_enabled_parameter' do
     context 'when set true with dotted notation' do
       before(:context) do
