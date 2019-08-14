@@ -10,11 +10,11 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=3.2.0 <6.0.0"
+      "version_requirement": ">=3.2.0 <7.0.0"
     },
     {
       "name": "elastic/elastic_stack",
-      "version_requirement": ">=6.0.0 <7.0.0"
+      "version_requirement": ">=6.0.0 <8.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -70,7 +70,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=4.6.1 <6.0.0"
+      "version_requirement": ">=4.6.1 <7.0.0"
     }
   ]
 }
