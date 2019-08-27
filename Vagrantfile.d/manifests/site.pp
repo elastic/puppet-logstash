@@ -32,5 +32,5 @@ logstash::configfile { 'pipeline_one':
 }
 
 logstash::plugin { 'logstash-input-mysql':
-  environment => ['LS_JAVA_OPTS=-Xms1g -Xmx1g']
+  environment => ['LS_JAVA_OPTS=-Xms1g -Xmx1g'],
 }

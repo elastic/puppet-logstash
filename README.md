@@ -104,6 +104,13 @@ class { 'logstash':
 }
 ```
 
+### Use a different logstash home
+``` puppet
+class { 'logstash':
+  home_dir => '/opt/logstash',
+}
+```
+
 ### Do not run as a service
 ``` puppet
 class { 'logstash':
