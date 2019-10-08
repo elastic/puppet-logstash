@@ -42,10 +42,10 @@
 # @author https://github.com/elastic/puppet-logstash/graphs/contributors
 #
 define logstash::configfile(
-  $content = undef,
-  $source = undef,
-  $template = undef,
-  $path = undef,
+  Optional[String] $content  = undef,
+  Optional[String] $source   = undef,
+  Optional[String] $template = undef,
+  Optional[String] $path     = undef,
 )
 {
   include logstash
@@ -60,8 +60,10 @@ define logstash::configfile(
   elsif($content) { $config = $content }
   else            { $config = undef }
 
-  if($path) { $config_file = $path }
-  else      { $config_file = "${logstash::config_dir}/conf.d/${name}" }
+  $config_file = ? $path {
+    undef   => "${logstash::config_dir}/conf.d/${name}",
+    default => $path
+  }
 
   if($config) {
     file { $config_file:
