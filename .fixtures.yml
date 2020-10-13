@@ -3,7 +3,7 @@ fixtures:
     apt: puppetlabs/apt
     elastic_stack: elastic/elastic_stack
     stdlib: puppetlabs/stdlib
-    zypprepo: darin/zypprepo
+    yumrepo: puppetlabs/yumrepo_core
 
 symlinks:
     logstash: #{source_dir}

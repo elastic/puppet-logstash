@@ -1,25 +1,23 @@
 HOSTS:
-  centos-6-x64:
+  centos-8-x64:
     docker_cmd:
       - "/sbin/init"
-    image: centos:6
-    platform: el-6-x86_64
-    packaging_platform: el-6-x86_64
+    image: centos:8
+    platform: el-8-x86_64
+    packaging_platform: el-8-x86_64
     docker_image_commands:
-      - cp /bin/true /sbin/mingetty
-      - rm -rf /var/run/network/*
+      - cp /bin/true /sbin/agetty
       - |
         echo -e "\
         [AdoptOpenJDK]\n\
         name=AdoptOpenJDK\n\
-        baseurl=http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/centos/6/x86_64\n\
+        baseurl=http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/centos/8/x86_64\n\
         enabled=1\n\
         gpgcheck=1\n\
         gpgkey=https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public\n\
         " > /etc/yum.repos.d/adoptopenjdk.repo
-      - yum install -y crontabs initscripts iproute openssl sysvinit-tools tar wget
-        which adoptopenjdk-8-hotspot
-      - rm /etc/init/tty.conf
+      - yum install -y crontabs initscripts iproute openssl wget which glibc-langpack-en
+        adoptopenjdk-8-hotspot
     hypervisor: docker
     roles:
       - agent

@@ -1,10 +1,6 @@
 require 'spec_helper_acceptance'
 
 shared_examples 'a logstash installer' do
-  it "should install logstash version #{LS_VERSION}" do
-    expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
-  end
-
   case fact('osfamily')
   when 'RedHat', 'Suse'
     describe package('logstash') do
@@ -60,6 +56,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "should install logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
 
     context 'when installing from a local file' do
@@ -69,6 +68,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "should install logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
 
     context 'when installing from a "puppet://" url' do
@@ -78,6 +80,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "should install logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
   end
 

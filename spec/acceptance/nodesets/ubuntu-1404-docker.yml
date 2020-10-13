@@ -1,24 +1,23 @@
 HOSTS:
   ubuntu-14-04:
-    roles:
-      - master
-      - database
-      - dashboard
+    docker_cmd:
+      - "/sbin/init"
+    image: ubuntu:14.04
     platform: ubuntu-14.04-amd64
-    image: electrical/ubuntu:14.04
-    hypervisor: docker
-    docker_cmd: '["/sbin/init"]'
+    packaging_platform: ubuntu-14.04-amd64
     docker_image_commands:
-      - apt-get update
-      - apt-get install -yq apt-transport-https ruby ruby1.9.1-dev libaugeas-dev libaugeas-ruby lsb-release wget net-tools curl software-properties-common
-
-      # Install Oracle Java 8
-      - echo 'debconf shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections
-      - echo 'debconf shared/accepted-oracle-license-v1-1 seen true' | debconf-set-selections
-      - apt-add-repository ppa:webupd8team/java
-      - apt-get update
-      - apt-get install -yq oracle-java8-installer
-      - apt-get install -yq oracle-java8-set-default
+      - cp /bin/true /sbin/agetty
+      - rm /usr/sbin/policy-rc.d
+      - rm /sbin/initctl; dpkg-divert --rename --remove /sbin/initctl
+      - apt-get install -y net-tools wget apt-transport-https software-properties-common
+      - wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
+      - add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+      - apt-get update && apt-get install -y adoptopenjdk-8-hotspot
+      - locale-gen en_US.UTF-8
+      - echo LANG=en_US.UTF-8 > /etc/default/locale
+    hypervisor: docker
+    roles:
+      - agent
     docker_preserve_image: true
 
 CONFIG:

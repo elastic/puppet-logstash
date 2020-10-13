@@ -5,6 +5,7 @@ describe 'class plugin' do
   def ensure_plugin(present_absent, plugin, extra_args = nil)
     manifest = <<-END
       class { 'logstash':
+        version           => '#{logstash_package_version}',
         status            => 'disabled',
         restart_on_change => false,
       }
