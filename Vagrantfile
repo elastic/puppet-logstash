@@ -32,16 +32,16 @@ Vagrant.configure(2) do |config|
   config.vm.define 'test', autostart: false do |node|
     node.vm.box = 'bento/centos-7.8'
     node.vm.provider 'virtualbox' do |vm|
-      vm.memory = 4 * 1024
+      vm.memory = 4 *
+      vm.cpus = 2
     end
 
     node.vm.synced_folder ".", "/vagrant",
     type: "rsync",
-    rsync__args: ["--verbose", "--archive", "--delete", "-z", "-l"]
-    # rsync__exclude: [
-    #   ".git/",
-    #   "Gemfile.lock",
-    # ]
+    rsync__args: ["--verbose", "--archive", "--delete", "-z", "-l"],
+    rsync__exclude: [
+      "Gemfile.lock",
+    ]
 
     node.vm.provision "shell", privileged: false, inline: <<-SHELL
       # git

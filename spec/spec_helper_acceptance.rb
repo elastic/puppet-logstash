@@ -1,4 +1,4 @@
-if ! ENV['BEAKER_PUPPET_COLLECTION'] and ! ENV['BEAKER_PUPPET_AGENT_VERSION']
+if !ENV['BEAKER_PUPPET_COLLECTION'] && !ENV['BEAKER_PUPPET_AGENT_VERSION']
   ENV['BEAKER_PUPPET_COLLECTION'] = 'puppet5'
 end
 
@@ -14,11 +14,11 @@ if ENV['LOGSTASH_VERSION'].nil?
 end
 LS_VERSION = ENV['LOGSTASH_VERSION']
 
-if LS_VERSION =~ /(alpha|beta|rc)/
-  IS_PRERELEASE = true
-else
-  IS_PRERELEASE = false
-end
+IS_PRERELEASE = if LS_VERSION =~ %r{(alpha|beta|rc)}
+                  true
+                else
+                  false
+                end
 
 def expect_no_change_from_manifest(manifest)
   expect(apply_manifest(manifest).exit_code).to eq(0)
@@ -48,11 +48,11 @@ def logstash_package_filename
 end
 
 def logstash_package_version
-  if LS_VERSION =~ /(alpha|beta|rc)/
-    package_version = LS_VERSION.gsub('-', '~')
-  else
-    package_version = LS_VERSION
-  end
+  package_version = if LS_VERSION =~ %r{(alpha|beta|rc)}
+                      LS_VERSION.tr('-', '~')
+                    else
+                      LS_VERSION
+                    end
 
   case fact('osfamily') # FIXME: Put this logic in the module, not the tests.
   when 'RedHat'
@@ -74,7 +74,7 @@ def install_logstash_manifest(extra_args = nil)
   <<-END
   class { 'elastic_stack::repo':
     version    => #{LS_VERSION[0]},
-    prerelease => #{IS_PRERELEASE.to_s},
+    prerelease => #{IS_PRERELEASE},
   }
   class { 'logstash':
     manage_repo  => true,
@@ -86,11 +86,11 @@ def install_logstash_manifest(extra_args = nil)
   END
 end
 
-def include_logstash_manifest()
+def include_logstash_manifest
   <<-END
   class { 'elastic_stack::repo':
     version    => #{LS_VERSION[0]},
-    prerelease => #{IS_PRERELEASE.to_s},
+    prerelease => #{IS_PRERELEASE},
   }
 
   include logstash
@@ -126,20 +126,20 @@ end
 def install_logstash(extra_args = nil)
   result = apply_manifest(install_logstash_manifest(extra_args), catch_failures: true)
   sleep 5 # FIXME: This is horrible.
-  return result
+  result
 end
 
 def include_logstash
   result = apply_manifest(include_logstash_manifest, catch_failures: true, debug: true)
   sleep 5 # FIXME: This is horrible.
-  return result
+  result
 end
 
 def install_logstash_from_url(url, extra_args = nil)
   manifest = install_logstash_from_url_manifest(url, extra_args)
   result = apply_manifest(manifest, catch_failures: true)
   sleep 5 # FIXME: This is horrible.
-  return result
+  result
 end
 
 def install_logstash_from_local_file(extra_args = nil)
@@ -149,14 +149,14 @@ end
 def remove_logstash
   result = apply_manifest(remove_logstash_manifest)
   sleep 5 # FIXME: This is horrible.
-  return result
+  result
 end
 
 def stop_logstash
   result = apply_manifest(stop_logstash_manifest, catch_failures: true)
   shell('ps -eo comm | grep java | xargs kill -9', accept_all_exit_codes: true)
   sleep 5 # FIXME: This is horrible.
-  return result
+  result
 end
 
 def logstash_process_list
@@ -165,7 +165,7 @@ def logstash_process_list
 end
 
 def logstash_settings
-  YAML.load(shell('cat /etc/logstash/logstash.yml').stdout)
+  YAML.safe_load(shell('cat /etc/logstash/logstash.yml').stdout)
 end
 
 def expect_setting(setting, value)
@@ -173,7 +173,7 @@ def expect_setting(setting, value)
 end
 
 def pipelines_from_yaml
-  YAML.load(shell('cat /etc/logstash/pipelines.yml').stdout)
+  YAML.safe_load(shell('cat /etc/logstash/pipelines.yml').stdout)
 end
 
 def service_restart_message
@@ -225,8 +225,8 @@ hosts.each do |host|
 end
 
 RSpec.configure do |c|
-  module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-  module_name = module_root.split('/').last
+  # module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+  # module_name = module_root.split('/').last
 
   # Readable test descriptions
   c.formatter = :documentation

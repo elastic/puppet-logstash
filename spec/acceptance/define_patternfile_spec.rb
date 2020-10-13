@@ -1,4 +1,5 @@
 # coding: utf-8
+
 require 'spec_helper_acceptance'
 
 describe 'class patternfile' do
@@ -18,8 +19,8 @@ describe 'class patternfile' do
     before(:context) { apply_pattern(0) }
 
     describe file '/etc/logstash/patterns/the_only_pattern_file' do
-      it { should be_a_file }
-      its(:content) { should match(/GROK_PATTERN_0/) }
+      it { is_expected.to be_a_file }
+      its(:content) { is_expected.to match(%r{GROK_PATTERN_0}) }
     end
   end
 
@@ -33,9 +34,8 @@ describe 'class patternfile' do
     end
 
     it 'does not restart logstash if logstash::restart_on_change is false' do
-      os = fact('lsbdistdescription')
       log = apply_pattern(1, 'restart_on_change => false').stdout
       expect(log).not_to include(restart_message)
     end
   end
- end
+end

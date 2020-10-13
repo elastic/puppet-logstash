@@ -1,4 +1,5 @@
 # coding: utf-8
+
 require 'spec_helper_acceptance'
 
 describe 'class plugin' do
@@ -33,7 +34,7 @@ describe 'class plugin' do
 
     it 'will not remove it again' do
       log = ensure_plugin('absent', 'logstash-input-sqs').stdout
-      expect(log).to_not contain('remove-logstash-input-sqs')
+      expect(log).not_to contain('remove-logstash-input-sqs')
     end
 
     it 'can install it from rubygems' do
@@ -43,13 +44,13 @@ describe 'class plugin' do
   end
 
   context 'when a plugin is installed' do
-    before(:each) do
+    it do
       expect(installed_plugins).to contain('logstash-input-file')
     end
 
     it 'will not install it again' do
       log = ensure_plugin('present', 'logstash-input-file').stdout
-      expect(log).to_not contain('install-logstash-input-file')
+      expect(log).not_to contain('install-logstash-input-file')
     end
 
     it 'can remove it' do
