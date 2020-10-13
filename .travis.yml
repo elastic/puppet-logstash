@@ -43,121 +43,124 @@ jobs:
       rvm: 2.5.7
       stage: spec
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-6 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-6
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-6 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-6
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-7 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-7
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-7 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-7
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-8 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-8 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:centos-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-8 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-8 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-9 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-9
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-9 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-9
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-10 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-10
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-10 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-10
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1404 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1404
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1404 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1404
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1604 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1604
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1604 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1604
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1804 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1804
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1804 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1804
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-2004 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-2004
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-2004 LOGSTASH_VERSION=5.6.16
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-2004
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-6 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-6
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-6 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-6
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-7 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-7
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-7 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-7
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=centos-8 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos-8 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:centos-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-8 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-8 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-8
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-9 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-9
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-9 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-9
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-10 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-10
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian-10 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-10
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1404 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1404
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1404 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1404
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1604 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1604
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1604 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1604
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1804 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1804
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-1804 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1804
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu-2004 LOGSTASH_VERSION=6.8.12
+      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-2004
+      stage: acceptance
+    -
+      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-2004
       stage: acceptance
     -
       env: DEPLOY_TO_FORGE=yes
