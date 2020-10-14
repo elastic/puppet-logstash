@@ -18,7 +18,7 @@ shared_examples 'a logstash installer' do
   describe service('logstash') do
     it { is_expected.to be_running }
     it 'is expected to be enabled' do
-      if fact('lsbdistdescription') =~ %r{centos release 6}i
+      if fact('osfamily') == 'RedHat' && fact('operatingsystemmajrelease') == '6'
         skip('Serverspec seems confused about this on Centos 6.')
       end
       is_expected.to be_enabled
