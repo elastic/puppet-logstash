@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
   Added RedHat and CentOS 8 support
   Removed Debian 7 support
   Added Debian 9 and 10 support
+  Removed Ubuntu 14.04 support
   Added Ubuntu 18.04 and 20.04 support
   Removed OpenSuSE support
 

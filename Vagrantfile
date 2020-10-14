@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
   config.vm.define 'test', autostart: false do |node|
     node.vm.box = 'bento/centos-7.8'
     node.vm.provider 'virtualbox' do |vm|
-      vm.memory = 4 *
+      vm.memory = 4 * 1024
       vm.cpus = 2
     end
 

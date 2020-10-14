@@ -79,12 +79,6 @@ jobs:
       env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:debian-10
       stage: acceptance
     -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1404
-      stage: acceptance
-    -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1404
-      stage: acceptance
-    -
       env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=5.6.16 CHECK=beaker:ubuntu-1604
       stage: acceptance
     -
@@ -137,12 +131,6 @@ jobs:
       stage: acceptance
     -
       env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:debian-10
-      stage: acceptance
-    -
-      env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1404
-      stage: acceptance
-    -
-      env: BEAKER_PUPPET_COLLECTION=puppet6 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1404
       stage: acceptance
     -
       env: BEAKER_PUPPET_COLLECTION=puppet5 LOGSTASH_VERSION=6.8.12 CHECK=beaker:ubuntu-1604
