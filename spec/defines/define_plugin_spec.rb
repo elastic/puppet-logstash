@@ -7,10 +7,12 @@ describe 'logstash::plugin' do
         facts
       end
 
-      let(:pre_condition) { %q(
-        include elastic_stack::repo
-        include logstash
-      )}
+      let(:pre_condition) do
+        [
+          'include elastic_stack::repo',
+          'include logstash',
+        ]
+      end
 
       let(:title) { 'logstash-input-mysql' }
 

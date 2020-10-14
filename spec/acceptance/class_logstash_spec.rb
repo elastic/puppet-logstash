@@ -1,40 +1,36 @@
 require 'spec_helper_acceptance'
 
 shared_examples 'a logstash installer' do
-  it "should install logstash version #{LS_VERSION}" do
-    expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
-  end
-
   case fact('osfamily')
   when 'RedHat', 'Suse'
     describe package('logstash') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
   when 'Debian'
     # Serverspec has been falsely reporting the package as not installed on
     # Debian 7, so we'll implement our own version of "should be_installed".
-    it "should install logstash package version #{logstash_package_version}" do
+    it "installs logstash package version #{logstash_package_version}" do
       apt_output = shell('apt-cache policy logstash').stdout
       expect(apt_output).to include("Installed: #{logstash_package_version}")
     end
   end
 
   describe service('logstash') do
-    it { should be_running }
-    it 'should be_enabled' do
-      if fact('lsbdistdescription') =~ /centos release 6/i
+    it { is_expected.to be_running }
+    it 'is expected to be enabled' do
+      if fact('osfamily') == 'RedHat' && fact('operatingsystemmajrelease') == '6'
         skip('Serverspec seems confused about this on Centos 6.')
       end
-      should be_enabled
+      is_expected.to be_enabled
     end
   end
 
-  it 'should spawn a single logstash process' do
+  it 'spawns a single logstash process' do
     expect(logstash_process_list.length).to eq(1)
   end
 
-  it 'should run logstash as the "logstash" user' do
-    expect(logstash_process_list.pop).to match(/^logstash /)
+  it 'runs logstash as the "logstash" user' do
+    expect(logstash_process_list.pop).to match(%r{^logstash })
   end
 end
 
@@ -48,7 +44,7 @@ describe 'class logstash' do
 
       it_behaves_like 'a logstash installer'
 
-      it 'should be idempotent' do
+      it 'runs idempotently' do
         expect_no_change_from_manifest(install_logstash_manifest)
       end
     end
@@ -60,6 +56,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "installs logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
 
     context 'when installing from a local file' do
@@ -69,6 +68,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "installs logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
 
     context 'when installing from a "puppet://" url' do
@@ -78,6 +80,9 @@ describe 'class logstash' do
       end
 
       it_behaves_like 'a logstash installer'
+      it "installs logstash version #{LS_VERSION}" do
+        expect(shell('/usr/share/logstash/bin/logstash --version').stdout).to eq("logstash #{LS_VERSION}\n")
+      end
     end
   end
 
@@ -87,19 +92,17 @@ describe 'class logstash' do
       remove_logstash
     end
 
-    it 'should be idempotent' do
+    it 'runs idempotently' do
       expect_no_change_from_manifest(remove_logstash_manifest)
     end
 
     describe package('logstash') do
-      it { should_not be_installed }
+      it { is_expected.not_to be_installed }
     end
 
     describe service('logstash') do
-      it { should_not be_running }
-      it 'should not be enabled' do
-        should_not be_enabled
-      end
+      it { is_expected.not_to be_running }
+      it { is_expected.not_to be_enabled }
     end
   end
 
@@ -119,19 +122,19 @@ describe 'class logstash' do
         install_logstash_from_local_file("settings => #{settings}")
       end
 
-      it 'it sets "http.port" to "9999"' do
+      it 'sets "http.port" to "9999"' do
         expect_setting('http.port', '9999')
       end
 
-      it 'it retains the default "path.data" setting' do
+      it 'retains the default "path.data" setting' do
         expect_setting('path.data', '/var/lib/logstash')
       end
 
-      it 'it retains the default "path.config" setting' do
+      it 'retains the default "path.config" setting' do
         expect_setting('path.config', '/etc/logstash/conf.d')
       end
 
-      it 'it retains the default "path.logs" setting' do
+      it 'retains the default "path.logs" setting' do
         expect_setting('path.logs', '/var/log/logstash')
       end
     end
@@ -172,14 +175,14 @@ describe 'class logstash' do
 
   describe 'startup_options parameter' do
     context "with 'LS_USER' => 'root'" do
-      before do
+      before(:each) do
         remove_logstash
         startup_options = "{ 'LS_USER' => 'root' }"
         install_logstash_from_local_file("startup_options => #{startup_options}")
       end
 
-      it 'should run logstash as root' do
-        expect(logstash_process_list.pop).to match(/^root /)
+      it 'runs logstash as root' do
+        expect(logstash_process_list.pop).to match(%r{^root })
       end
     end
   end
@@ -191,15 +194,15 @@ describe 'class logstash' do
         install_logstash_from_local_file("jvm_options => #{jvm_options}")
       end
 
-      it 'should run java with -Xms1g' do
+      it 'runs java with -Xms1g' do
         expect(logstash_process_list.pop).to include('-Xms1g')
       end
 
-      it 'should not run java with the default of -Xms256m' do
+      it 'does not run java with the default of -Xms256m' do
         expect(logstash_process_list.pop).not_to include('-Xms256m')
       end
 
-      it 'should run java with the default "expert" flags' do
+      it 'runs java with the default "expert" flags' do
         expert_flags = [
           '-Dfile.encoding=UTF-8',
           '-Djava.awt.headless=true',
@@ -216,17 +219,19 @@ describe 'class logstash' do
       end
 
       context 'when the option is changed' do
-        it 'should restart logstash' do
+        it 'restarts logstash' do
           puppet_log = install_logstash_from_local_file(
-            "jvm_options => [ '-Xms512m' ]").stdout
+            "jvm_options => [ '-Xms512m' ]",
+          ).stdout
           expect(puppet_log).to include(service_restart_message)
         end
 
         context 'when restart_on_change is false' do
-          it 'should not restart logstash' do
+          it 'does not restart logstash' do
             puppet_log = install_logstash_from_local_file(
               "jvm_options       => [ '-Xms256m' ],
-               restart_on_change => false").stdout
+              restart_on_change => false",
+            ).stdout
             expect(puppet_log).not_to include(service_restart_message)
           end
         end
@@ -235,7 +240,7 @@ describe 'class logstash' do
   end
 
   describe 'pipelines_parameter' do
-    context "with pipelines declared" do
+    context 'with pipelines declared' do
       before(:context) do
         pipelines_puppet = <<-END
         [
@@ -252,12 +257,12 @@ describe 'class logstash' do
         install_logstash_from_local_file("pipelines => #{pipelines_puppet}")
       end
 
-      it 'should render them to pipelines.yml' do
+      it 'renders them to pipelines.yml' do
         expect(pipelines_from_yaml[0]['pipeline.id']).to eq('pipeline_one')
         expect(pipelines_from_yaml[1]['pipeline.id']).to eq('pipeline_two')
       end
 
-      it 'should remove "path.config" from "logstash.yml"' do
+      it 'removes "path.config" from "logstash.yml"' do
         expect(logstash_settings['path.config']).to be_nil
       end
     end
@@ -270,7 +275,7 @@ describe 'class logstash' do
         install_logstash_from_local_file("settings => #{settings_puppet_code}")
       end
 
-      it 'should remove "path.config" from "logstash.yml"' do
+      it 'removes "path.config" from "logstash.yml"' do
         expect(logstash_settings['path.config']).to be_nil
       end
     end
@@ -289,7 +294,7 @@ describe 'class logstash' do
         install_logstash_from_local_file("settings => #{settings_puppet_code}")
       end
 
-      it 'should remove "path.config" from "logstash.yml"' do
+      it 'removes "path.config" from "logstash.yml"' do
         expect(logstash_settings['path.config']).to be_nil
       end
     end

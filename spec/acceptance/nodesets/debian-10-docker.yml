@@ -1,15 +1,15 @@
 HOSTS:
-  debian-8:
+  debian-10:
     docker_cmd:
       - "/sbin/init"
-    image: debian:8
-    platform: debian-8-amd64
-    packaging_platform: debian-8-amd64
+    image: debian:10
+    platform: debian-10-amd64
+    packaging_platform: debian-10-amd64
     docker_image_commands:
       - cp /bin/true /sbin/agetty
       - rm -f /usr/sbin/policy-rc.d
       - apt-get update && apt-get install -y cron locales-all net-tools wget
-        apt-transport-https software-properties-common
+        gnupg software-properties-common
       - wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
       - add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
       - apt-get update && apt-get install -y adoptopenjdk-8-hotspot

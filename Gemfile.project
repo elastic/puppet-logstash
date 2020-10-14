@@ -1,0 +1,10 @@
+
+group :development do
+  gem 'beaker',                       :require => false, :platforms => :ruby
+  gem 'beaker-rspec',                 :require => false, :platforms => :ruby
+  gem 'beaker-docker',                :require => false, :platforms => :ruby
+  gem 'beaker-pe',                    :require => false, :platforms => :ruby
+  gem 'beaker-puppet',                :require => false, :platforms => :ruby
+  gem 'beaker-puppet_install_helper', :require => false, :platforms => :ruby
+  gem 'beaker-module_install_helper', :require => false, :platforms => :ruby
+end

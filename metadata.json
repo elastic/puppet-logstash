@@ -1,16 +1,15 @@
 {
   "name": "elastic-logstash",
-  "version": "6.1.5",
-  "source": "https://github.com/elastic/puppet-logstash",
+  "version": "6.2.0",
   "author": "elastic",
-  "license": "Apache-2.0",
   "summary": "Module for managing and configuring Logstash",
-  "description": "Module for managing and configuring Logstash",
+  "license": "Apache-2.0",
+  "source": "https://github.com/elastic/puppet-logstash",
   "project_page": "https://github.com/elastic/puppet-logstash",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=3.2.0 <6.0.0"
+      "version_requirement": ">=3.2.0 <7.0.0"
     },
     {
       "name": "elastic/elastic_stack",
@@ -22,14 +21,16 @@
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
@@ -49,28 +50,27 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
-        "8"
+        "8",
+        "9",
+        "10"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "14.04",
-        "16.04"
-      ]
-    },
-    {
-      "operatingsystem": "OpenSuSE",
-      "operatingsystemrelease": [
-        "13.x"
+        "16.04",
+        "18.04",
+        "20.04"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=4.6.1 <6.0.0"
+      "version_requirement": ">=5.5.10 <7.0.0"
     }
-  ]
+  ],
+  "pdk-version": "1.18.1",
+  "template-url": "pdk-default#1.18.1",
+  "template-ref": "tags/1.18.1-0-g3d2e75c"
 }

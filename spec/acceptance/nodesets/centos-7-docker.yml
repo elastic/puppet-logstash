@@ -1,16 +1,26 @@
 HOSTS:
   centos-7-x64:
-    roles: [agent, database, dashboard, master]
-    platform: el-7-x86_64
+    docker_cmd:
+      - "/sbin/init"
     image: centos:7
-    hypervisor: docker
-    docker_cmd: '["/usr/sbin/init"]'
+    platform: el-7-x86_64
+    packaging_platform: el-7-x86_64
     docker_image_commands:
-      - rm /lib/systemd/system/systemd*udev*
-      - rm /lib/systemd/system/getty.target
-      - yum install -y wget ntpdate redhat-lsb-core redhat-lsb rubygems ruby-devel augeas-devel ruby-augeas tar logrotate
-      - 'cd / && wget -q --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jre-8u131-linux-x64.rpm"'
-      - 'cd / && yum localinstall -y jre-8u131-linux-x64.rpm'
+      - cp /bin/true /sbin/agetty
+      - |
+        echo -e "\
+        [AdoptOpenJDK]\n\
+        name=AdoptOpenJDK\n\
+        baseurl=http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/centos/7/x86_64\n\
+        enabled=1\n\
+        gpgcheck=1\n\
+        gpgkey=https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public\n\
+        " > /etc/yum.repos.d/adoptopenjdk.repo
+      - yum install -y crontabs initscripts iproute openssl sysvinit-tools tar wget
+        which ss adoptopenjdk-8-hotspot
+    hypervisor: docker
+    roles:
+      - agent
     docker_preserve_image: true
 CONFIG:
   type: foss
