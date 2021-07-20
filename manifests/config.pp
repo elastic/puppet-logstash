@@ -9,8 +9,8 @@ class logstash::config {
   require logstash::package
 
   File {
-    owner => 'root',
-    group => 'root',
+    owner => $logstash::logstash_user,
+    group => $logstash::logstash_group,
   }
 
   # Configuration "fragment" directories for pipeline config and pattern files.
@@ -21,14 +21,14 @@ class logstash::config {
   if($logstash::ensure == 'present') {
     file { $logstash::config_dir:
       ensure => directory,
-      mode   => '0755',
+      mode   => '0750',
     }
 
     file { "${logstash::config_dir}/conf.d":
       ensure  => directory,
       purge   => $logstash::purge_config,
       recurse => $logstash::purge_config,
-      mode    => '0775',
+      mode    => '0770',
       notify  => Service['logstash'],
     }
 
@@ -36,7 +36,7 @@ class logstash::config {
       ensure  => directory,
       purge   => $logstash::purge_config,
       recurse => $logstash::purge_config,
-      mode    => '0755',
+      mode    => '0750',
     }
   }
   elsif($logstash::ensure == 'absent') {

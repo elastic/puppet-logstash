@@ -50,9 +50,9 @@ class logstash::service {
   $pipelines = $logstash::pipelines
 
   File {
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    owner  => $logstash::logstash_user,
+    group  => $logstash::logstash_group,
+    mode   => '0640',
     notify => Exec['logstash-system-install'],
   }
 
